@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>@ppedroalvse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        #imagem {
+            max-width: 92vw;
+            max-height: 92vh;
+            object-fit: contain;
+            border-radius: 18px;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Desktop: Deussalvador.png | Celular: Deussalvador-mobile.png (coloque os dois na pasta do site) -->
+<picture>
+    <source media="(max-width: 768px)" srcset="Deussalvador-mobile.jpg">
+    <img id="imagem" src="Deussalvador.png" alt="Imagem do site">
+</picture>
+
+<audio id="audio" loop>
+    <source src="salinha.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+</audio>
+
+<script>
+    const audio = document.getElementById("audio");
+    let started = false;
+
+    async function startAudioOnce() {
+        if (started) return;
+        started = true;
+        try {
+            await audio.play();
+        } catch (e) {
+            // Se o navegador bloquear por algum motivo, permite tentar de novo no próximo toque.
+            started = false;
+        }
+    }
+
+    // Começa com qualquer toque/clique na tela (sem botão)
+    document.addEventListener("pointerdown", startAudioOnce, { passive: true });
+    document.addEventListener("touchstart", startAudioOnce, { passive: true });
+    document.addEventListener("mousedown", startAudioOnce, { passive: true });
+</script>
+
+</body>
+</html>
